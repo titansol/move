@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #FFEEEE;
+            background: -webkit-linear-gradient(to right, #DDEFBB, #FFEEEE);
+            background: linear-gradient(to right, #DDEFBB, #FFEEEE);
+        }
+        #path, #arrow {
+            display: block;
+            margin: 0 auto;
+        }
+        #path{
+            height: 300px;
+            border: 1px dashed #ccc;
+            box-shadow: 0 0 10px #bcbcbc;
+        }
+        #arrow {
+            height: 40px;
+            position: absolute;
+            left: 50%;
+        }
+        p {
+            text-align: center;
+            padding: 20px;
+        }
+        #trigger {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background: #FFC837;
+            color: #000;
+            font-size: 16px;
+            font-family: arial;
+            border: 1px solid #bbb;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 0 10px #bcbcbc;
+            transition: background .3s, color .3s;
+        }
+        #trigger:hover {
+            background: #F45C43;
+            color: #fff;
+        }
+    </style>
+    <title>test</title>
+</head>
+<body>
+    <div>
+        <img src="img/arrow.png" alt="Click to move arrow" id="arrow">
+        <img src="img/path.png" alt="Path of arrow" id="path">
+        <button id="trigger" onclick="step1()">Click here and wait</button>
+    </div>
+
+    <script>
+        const arrow = document.getElementById("arrow");
+        let interval = null;
+        let eventTrigger = 0;
+        function step1() {
+            if (eventTrigger == 0) {
+            eventTrigger = 1;
+            interval = setInterval(function(){
+                arrow.style.transform = `translate(-10px,200px) rotate(90deg)`;
+                arrow.style.transition = `1s`;
+                clearInterval(interval);
+                step2();
+            }, 1000);
+        }
+        function step2() {
+            interval = setInterval(function(){
+                arrow.style.transform = `translate(-80px,200px) rotate(180deg)`;
+                arrow.style.transition = `1s`;
+                clearInterval(interval);
+                step3();
+            }, 1000);
+        }
+        function step3() {
+            interval = setInterval(function(){
+                arrow.style.transform = `translate(-80px,90px) rotate(270deg)`;
+                arrow.style.transition = `1s`;
+                clearInterval(interval);
+                start();
+            }, 1000);
+        }
+        function start() {
+            interval = setInterval(function(){
+                arrow.style.transform = `translate(0px,0px) rotate(0deg)`;
+                arrow.style.transition = `1s`;
+                clearInterval(interval);
+                return eventTrigger = 0;
+            }, 1000);
+        }}
+    </script>
+</body>
+</html>
